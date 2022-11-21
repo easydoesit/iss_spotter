@@ -1,14 +1,6 @@
-/**
- * Makes a single API request to retrieve the user's IP address.
- * Input:
- *   - A callback (to pass back an error or the IP string)
- * Returns (via Callback):
- *   - An error, if any (nullable)
- *   - The IP address as a string (null if error). Example: "162.245.144.188"
- */
-
 const request = require("request");
 
+// fetch the users ip address or an error if there is a problem.
 const fetchMyIP = function(callback) {
   const url = 'https://api.ipify.org?format=json';
 
@@ -32,6 +24,8 @@ const fetchMyIP = function(callback) {
   });
 };
 
+// fetch the users lat and long based on IP. Returns Object {latitude: '###' and longitude: '###'}
+// or error.
 const fetchCoordsByIp = function(ip, callback) {
   const url = `http://ipwho.is/${ip}?output=json`;
 
@@ -58,6 +52,8 @@ const fetchCoordsByIp = function(ip, callback) {
   });
 };
 
+// fetch local flyover times. Takes coordinates as Object {latitude: '###' longitude:'###'}
+// returns the next time iss passes and it's duration or errors.
 const fetchISSFlyOverTimes = function(coords, callback) {
   const url = `https://iss-flyover.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`;
 
@@ -81,6 +77,8 @@ const fetchISSFlyOverTimes = function(coords, callback) {
   });
 };
 
+// waterfall functions returns callback with the next passes or errors.
+
 const nextISSTimesForMyLocation = function(callback) {
   fetchMyIP((error, ip) => {
     if (error) {
@@ -100,4 +98,4 @@ const nextISSTimesForMyLocation = function(callback) {
   });
 };
 
-module.exports = { fetchMyIP, fetchCoordsByIp,fetchISSFlyOverTimes,nextISSTimesForMyLocation};
+module.exports = { nextISSTimesForMyLocation};
