@@ -16,10 +16,13 @@ const printPassTimes = function(passTimes) {
     console.log(`Next pass at ${day} ${month} ${dOfMonth} ${hour}:${minutes}:${seconds} GMT-0700 (Mountain Standard Time) for ${passTimes[i].duration} seconds`);
   }
 };
+
 // calls nextISSTimesForMyLocation from './iss' returns all pass times or error.
-nextISSTimesForMyLocation((error, passTimes) => {
-  if (error) {
-    return console.log("It didn't work!", error);
-  }
-  printPassTimes(passTimes);
-});
+// nextISSTimesForMyLocation((error, passTimes) => {
+//   if (error) {
+//     return console.log("It didn't work!", error);
+//   }
+//   printPassTimes(passTimes);
+// });
+
+// module.exports = {printPassTimes};
